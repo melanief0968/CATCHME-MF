@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Soso" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" type="image/png" href="" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/sob7vkr.css">
+    <title>Catch Me</title>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+        
+    <script src="config/config.js"></script>
+    <script src="js/cell.js"></script>
+    <script src="js/power.js"></script>
+    <script src="js/direction.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
+  </head>
+
+  <header>
+    <img class="infos" src="img/infos.png">
+    <div class="infomenu">
+      <img class="logo" src="img/logo.png">
+      <p class="texteinfos">How you play : blabla<br>
+       move blabla<br>
+       your superpower <br>
+       your oponant: blabla
+      </p>
+    </div>
+    <div class="titre">Catch Me</div>
+  </header>
+  <body>
+    <div class="game">
+      <div id="power">
+        <div class="bigcells"></div>
+      </div>
+
+      <div class="plateau">
+        <div id="gridContainer">
+          <div class="cells"></div>
+          <div class="players"></div>
+        </div>
+
+        <div id="template" class="hidden">
+          <div class="position player player1">
+            <div class="draw"></div>
+            <div class="navigation-system">
+              <div class="navigation-arrow up" data-way="up"></div>
+              <div class="navigation-arrow left" data-way="left"></div>
+              <div class="navigation-arrow right" data-way="right"></div>
+              <div class="navigation-arrow down" data-way="down"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+      <div id="direction">
+        <div class="bigcells"></div>
+      </div>
+  </div>
+  </body>
+</html>

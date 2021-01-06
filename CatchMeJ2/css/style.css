@@ -1,0 +1,287 @@
+:root {
+  --bckd: #e6e6e6 ;
+  --casecolor: #f7f7f7;
+  --wall:white;
+  --player1: #4a60ff;
+  --player2: #e55650;
+  --size: 3vw;
+  --pawnSize: calc(var(--size) * 0.666);
+  --radius: 0.5vw;
+}
+
+/* changer radius en vw + titre */
+
+html,
+body {
+  margin: 0;
+  padding: 100;
+  height: 100%;
+  display: bloc;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  font-family: filicudi-solid, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: black;
+  background-color: var(--bckd);
+}
+
+header{
+  width:100%;
+  display:bloc;
+  align-items: center;
+  
+
+}
+
+.game{
+  display: flex;
+  position: absolute;
+  left:0;
+  top:0;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height:100vh;
+
+}
+
+.titre{
+  
+  width:100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+}
+
+
+#power {
+
+  z-index: 100;
+  height: calc(var(--n-rows) * var(--size));
+  width: var(--size);
+}
+
+.powerElem0{
+  background-color: var(--player2) !important;
+  border-radius: var(--radius) var(--radius) 0 0!important;
+}
+.powerElem8{
+ 
+  border-radius: 0 0 var(--radius) var(--radius) !important;
+}
+
+.powerElem{
+  background-color: white !important;
+}
+
+#gridContainer {
+  position: relative;
+  margin:var(--size);
+  height: calc(var(--n-rows) * var(--size));
+  width: calc(var(--n-cols) * var(--size));
+}
+
+.powerElement {
+  background-color: var(--casecolor);
+  /* border-radius: 0.6em; */
+  /* box-shadow: inset 0 0 0 0.1em var(--bckd); */
+  transition: all 1s;
+}
+
+.powerpos {
+  /* position: absolute; */
+  --row: 0;
+  --col: 0;
+  width: var(--size);
+  height: var(--size);
+  top: calc(var(--size) * var(--row));
+  left: calc(var(--size) * var(--col));
+}
+
+#direction {
+
+  height: calc(var(--n-rows) * var(--size));
+  width: calc(var(--n-col) * var(--size));
+}
+.directionElement {
+  background-color: var(--casecolor);
+  /* border-radius: var(--radius); */
+  /* box-shadow: inset 0 0 0 0.1em var(--bckd); */
+  transition: all 1s;
+}
+
+.dirElem0{
+  background-color: var(--player1) !important;
+  border-radius: var(--radius) var(--radius) 0 0!important;
+}
+.dirElem8{
+ 
+  border-radius: 0 0 var(--radius) var(--radius) !important;
+}
+
+
+.first{
+background-color: black;
+}
+.directionpos {
+  /* position: absolute; */
+  --row: 0;
+  --col: 0;
+  width: var(--size);
+  height: var(--size);
+  top: calc(var(--size) * var(--row));
+  left: calc(var(--size) * var(--col));
+}
+
+/* GRID */
+.position {
+  position: absolute;
+
+  --row: 0;
+  --col: 0;
+
+  width: var(--size);
+  height: var(--size);
+
+  top: calc(var(--size) * var(--row));
+  left: calc(var(--size) * var(--col));
+}
+
+.gridElement {
+  background-color: var(--casecolor);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 0.1em var(--bckd);
+  transition: all 1s;
+}
+
+.wall {
+  background-color: var(--wall);
+
+  z-index: 1000;
+  box-shadow: inset 0 0 0 0.1em var(--bckd), 0 0.2em 1em 0.1em rgba(0, 0, 0, 0.8);
+  /* background-color: var(--color1); */
+}
+
+.player {
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player .navigation-system {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  /* background: red; */
+}
+
+/* .player:hover .navigation-system {
+    opacity: 1;
+    
+} */
+
+.navigation-arrow {
+  position: absolute;
+  width: calc(var(--size)*0.7);
+  height: calc(var(--size)*0.7);
+
+  /* top: calc(var(--size) * var(--row));
+  left: calc(var(--size) * var(--col)); */
+  transform: translate(-120%, -120%);
+  background: var(--player2);
+  border-radius: 50%;
+  /* box-shadow: inset 0 0 0 0.3em #25242d; */
+  transition: background-color 0.1s;
+  opacity: 0.07;
+}
+.up {
+  top: 0;
+  left: var(--size);
+}
+.down {
+  top: calc(2 * var(--size));
+  left: var(--size);
+}
+.left {
+  top: var(--size);
+  left: 0;
+}
+.right {
+  top: var(--size);
+  left: calc(2 * var(--size));
+}
+
+/* .player1 {
+  --color: #4a60ff;
+} */
+
+.player .draw {
+  width: 66%;
+  height: 66%;
+  border-radius: 50%;
+  background-color: var(--player2);
+  pointer-events: none;
+}
+
+
+
+.hidden {
+  display: none;
+}
+
+
+.infos{
+  z-index: 998;
+  position:fixed;
+  top:0;
+  left:0;
+  width: 20px;
+  margin: 15px;
+  /* filter:invert(1); */
+}
+.infomenu{
+  z-index: 999;
+  position:fixed;
+  top:0;
+  left:0;
+  width: 50px;
+  margin: 15px;
+  background: var(--bckd);
+  height:50px;
+  transition: 0.5s ease;
+  opacity: 0;
+
+
+}
+
+.infomenu:hover{
+  opacity: 1;
+  position:fixed;
+  top:0;
+  right:0;
+  width: 80vw;
+  margin: 0;
+  /* background: black; */
+  height:100vh;
+}
+.texteinfos{
+  width:80%;
+  height:80%;
+  margin:10%;
+  font-size: 1.5vw;
+
+}
+
+.logo{
+  z-index: 998;
+  position:center;
+  top:0;
+  left:0;
+  width: 100px;
+  margin: 15px;
+}
