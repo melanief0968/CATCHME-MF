@@ -11,8 +11,8 @@ let GAME;
 
 let CELLS = [];
 let PLAYER = {pawns: []};
-let PLAYER_ID = "player1";
-let OPPONENT_ID = "player2";
+let OPPONENT_ID = "player1";
+let PLAYER_ID = "player2";
 let CELLS_ID = "cells";
 
 let POWER = [];
@@ -32,16 +32,16 @@ let DIRECTION_ID = "bigcells";
 let prefilledOpponent;
 
 window.addEventListener("load", function () {
-  initPower();
-  initDirection();
-  initGrid();
-  initPlayer();
-  listenToDatabase();
+  // initPower();
+  // initDirection();
+  // initGrid();
+  // initPlayer();
+  // listenToDatabase();
 
-  SEND_MESSAGE(PLAYER);
+  // SEND_MESSAGE(PLAYER);
 
-  GAME = new App(PAWNS);
-  initCellsApp();
+  // GAME = new App(PAWNS);
+  // initCellsApp();
 });
 
 

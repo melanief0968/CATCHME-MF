@@ -36,7 +36,7 @@ class Player {
       let index = OPPONENT_PAWNS.length;
       DATABASE.ref(`${OPPONENT_ID}/pawns/${index}`).on("value", (snapshot) => {
         let vals = snapshot.val();
-        console.log(vals);
+        // console.log(vals);
       });
     }
       
