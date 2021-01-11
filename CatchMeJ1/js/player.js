@@ -1,14 +1,20 @@
 class Player {
-  constructor(col, row, parent, grid, isOpponent = false) {
+  constructor(col, row, color, id, parent, grid) {
     this.parent = parent;
-
+    this.id = id;
     this.s = {}; // SHARED PARAMETERS
     this.s.col = col;
     this.s.row = row;
-
+    this.color = color;
     this.grid = grid;
 
-
+    // DATABASE.ref("Counter/x").on("value", (snapshot) => {
+    //   let vals = snapshot.val();
+    //   console.log(vals);
+    //   // const keys = Object.keys(vals);
+    //   // console.log(keys);
+    //   // console.log(vals.Counter);
+    // });
 
     this.elem = document.querySelector("#template .player").cloneNode(true);
     this.parent.appendChild(this.elem);
@@ -30,16 +36,35 @@ class Player {
       });
     }
 
-    if(!isOpponent) {
-      PLAYER.pawns.push(this.s);
-    } else {
-      let index = OPPONENT_PAWNS.length;
-      DATABASE.ref(`${OPPONENT_ID}/pawns/${index}`).on("value", (snapshot) => {
-        let vals = snapshot.val();
-        // console.log(vals);
-      });
+
+    PLAYER.positions.push(this.s);
+    // } else {
+    //   let index = OPPONENT_PAWNS.length;
+    //   DATABASE.ref(`${OPPONENT_ID}/pawns/${index}`).on("value", (snapshot) => {
+    //     let vals = snapshot.val();
+    //     console.log(vals);
+    //   });
+    // }
+    DATABASE.ref("pawns/positions").on("value", (snapshot) => {
+      let position = snapshot.val();
+      PLAYER.positions = position;
+      console.log(position[this.id]);
+      this.setpos(position[this.id].col, position[this.id].row);
+      // const keys = Object.keys(vals);
+      // console.log(keys);
+      // console.log(vals.Counter);
+    });
+    
+    if(ID == "catcher"){
+      if(this.id == 3){
+        this.elem.classList.add("hidden");
+      }
     }
-      
+    if(ID == "runner"){
+      if(this.id != 3){
+        this.elem.classList.add("hidden");
+      }    
+    }
 
   }
 
@@ -96,7 +121,7 @@ class Player {
       let way = target.dataset.way;
       let movementX = 0,
         movementY = 0;
-      let direction;
+
       if (way === "up") {
         movementY = -1;
       } else if (way === "down") {
@@ -108,6 +133,10 @@ class Player {
       }
 
       this.move(movementX, movementY);
+
+      
+      
+
       
     }
   }
@@ -119,9 +148,72 @@ class Player {
     if (positionX >= 0 && positionY >= 0 && positionX <= 8 && positionY <= 8) {
       this.s.col += movementX;
       this.s.row += movementY;
+      //SEND_MESSAGE(this.s, `${ID }/position`);
+      PLAYER.positions[this.id] = this.s;
+      if(movementX > 0){
+        this.updateDirection("right");
+      }
+      if(movementX < 0){
+        this.updateDirection("left");
+      }
+      if(movementY > 0){
+        this.updateDirection("down");
+      }
+      if(movementY < 0){
+        this.updateDirection("up");
+      }
+
+      this.updateDatabase();
+      //valeurs dans firebase send
+      this.updateCSS();
+      this.refreshPos();
+
+      if(ID == "catcher" && positionY == PLAYER.positions[3].row && positionX == PLAYER.positions[3].col){
+        result(ID);
+      }else if(ID == "runner" && positionY == PLAYER.positions[0].row && positionX == PLAYER.positions[0].col){
+        result(OTHER_ID);
+      }
+      else if(ID == "runner" && positionY == PLAYER.positions[1].row && positionX == PLAYER.positions[1].col){
+        result(OTHER_ID);
+      }
+      else if(ID == "runner" && positionY == PLAYER.positions[2].row && positionX == PLAYER.positions[2].col){
+        result(OTHER_ID);
+      }else if(ID == "runner" && positionY == 0){
+        result(ID);
+      }
+    }
+
+    
+  }
+
+  setpos(positionX, positionY) {
+    if (positionX >= 0 && positionY >= 0 && positionX <= 8 && positionY <= 8) {
+      this.s.col = positionX;
+      this.s.row = positionY;
+      //SEND_MESSAGE(this.s, `${ID }/position`);
+      PLAYER.positions[this.id] = this.s;
+      //this.updateDatabase();
+      //valeurs dans firebase send
       this.updateCSS();
       this.refreshPos();
     }
+  }
+
+  updateDirection(direction){
+    if(ID == "catcher"){
+      for (let row = N_ROWS_P - 1; row > 1; row--) {
+        DIRECTION_CATCHER[row].updateImg(DIRECTION_CATCHER[(row - 1)].image);
+      }
+      DIRECTION_CATCHER[1].updateImg(direction+"2");
+    }
+    if(ID == "runner"){
+      for (let row = N_ROWS_P - 1; row > 1; row--) {
+        DIRECTION[row].updateImg(DIRECTION[(row - 1)].image);
+      }
+      DIRECTION[1].updateImg(direction);   
+    }
+    SEND_MESSAGE({count: COUNTER_SELF, move: direction}, ID+"/lastMove");
+    COUNTER_SELF++;
   }
 
   select(sel) {
@@ -129,11 +221,11 @@ class Player {
     if (this.selected) {
       this.navigationSystem.setAttribute("class", "navigation-system");
       // this.activateNavigationSystem(true);
-      console.log("selected");
+      // console.log("selected");
     } else {
       this.navigationSystem.setAttribute("class", "hidden");
       // this.activateNavigationSystem(false);
-      console.log("deselected");
+      // console.log("deselected");
     }
   }
 
@@ -143,11 +235,13 @@ class Player {
   }
 
   updateDatabase() {
-    if(isOpponent)
-      return;
+   
 
-    SEND_MESSAGE(PLAYER)
+    SEND_MESSAGE(PLAYER,"pawns")
+
   }
+
+
 
   // SEND_MESSAGE("catch_me/essai", data);
 }

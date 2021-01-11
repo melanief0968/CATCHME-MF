@@ -32,16 +32,16 @@ let DIRECTION_ID = "bigcells";
 let prefilledOpponent;
 
 window.addEventListener("load", function () {
-  // initPower();
-  // initDirection();
-  // initGrid();
-  // initPlayer();
-  // listenToDatabase();
+  initPower();
+  initDirection();
+  initGrid();
+  initPlayer();
+  listenToDatabase();
 
-  // SEND_MESSAGE(PLAYER);
+  SEND_MESSAGE(PLAYER);
 
-  // GAME = new App(PAWNS);
-  // initCellsApp();
+  GAME = new App(PAWNS);
+  initCellsApp();
 });
 
 
