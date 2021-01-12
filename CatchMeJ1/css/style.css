@@ -31,10 +31,50 @@ header{
   width:100%;
   display:bloc;
   align-items: center;
-  
+ 
 
 }
 
+/* .startPage{
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  position: fixed;
+  z-index: 998;
+} */
+#startButtonC {
+  position: fixed;
+
+  background-color: black;
+  color: white;
+  border: 0;
+  top: 45%;
+  left: 35%;
+  z-index: 999;
+  font-size: 40px;
+  cursor: pointer;
+  font-family: filicudi-solid, sans-serif;
+
+}
+#startButtonR {
+  position: fixed;
+
+  background-color: black;
+  color: white;
+  border: 0;
+  top: 45%;
+  left: 55%;
+  z-index: 999;
+  font-size: 40px;
+  cursor: pointer;
+  font-family: filicudi-solid, sans-serif;
+
+}
+
+#startButtonC:hover {
+opacity: 0.5;
+transition: 0.3s;
+}
 
 .game{
   display: flex;

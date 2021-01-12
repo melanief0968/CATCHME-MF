@@ -30,6 +30,7 @@
   </head>
 
   <header>
+    
     <img class="infos" src="img/infos.png">
     <div class="infomenu">
       <img class="logo" src="img/logo.png">
@@ -42,11 +43,16 @@
     <div class="titre">Catch Me</div>
     <div class="resultV hidden">Victoire</div>
     <div class="resultD hidden">Défaite</div>
+    <div class="startPage">
+      <button id="startButtonC" onclick="startFunctionC()">Catcher</button>
+      <button id="startButtonR" onclick="startFunctionR()">Runner</button>
+    </div>
     
   </header>
   <body>
-  
-    <div class="game">
+    
+    <div class="game hidden">
+     
       <div class="horizontalButton">H</div>
       <div class="verticalButton">V</div>
       <div id="power">

@@ -34,6 +34,9 @@ let DIRECTION_CATCHER = [];
 let VICTORY;
 let DEFEAT;
 
+let STARTED;
+
+let isStarted = false;
 
 //IDENTIFICATION DU JOUEUR
 const urlParams = new URLSearchParams(window.location.search);
@@ -48,6 +51,7 @@ function bidon() {
 
 
 window.addEventListener("load", function () {
+ 
   initPower();
   initDirection();
   initGrid();
@@ -100,8 +104,16 @@ window.addEventListener("load", function () {
             }
           }
         }
-    }}
+      }
+   }
   });
+
+
+  // DATABASE.ref("choosePlayer").on("value", (snapshot) => {
+  //   let choice = snapshot.val();
+
+  // });
+
 
   SEND_MESSAGE(PLAYER,"pawns");
 
@@ -148,8 +160,8 @@ function initPlayer() {
     { col: 2, row: 0, color: null, id:0 },
     { col: 4, row: 0, color: null, id:1 },
     { col: 6, row: 0, color: null, id:2 },
-    { col: 4, row: 7, color: null, id:3 },
-    // { col: 4, row: 8, color: null },
+    { col: 4, row: 8, color: null, id:3 },
+   
   ];
 
   for (let { col, row, color, id } of params) {
@@ -274,3 +286,36 @@ function updateMove(direction){
 // x = pawn.style.left;
 // y = pawn.style.top;
 // }
+
+
+
+function startFunctionR(id) {
+
+  
+  let url = new URL("http://localhost:8080/github/CATCHME-MF/CatchMeJ1");
+  STARTED = document.querySelector(".game");
+  console.log("COUCOUCOUCOUCOUCOU");
+  isStarted = true;
+  if(isStarted == true){
+    STARTED.classList.remove("hidden");
+    url.searchParams.append('id', 'runner');
+    console.log(url);
+  }
+  SEND_MESSAGE("runner", "choosePlayer");
+  document.getElementById("startButtonC").remove();
+  document.getElementById("startButtonR").remove();
+}
+
+function startFunctionC() {
+  let url = new URL("http://localhost:8080/github/CATCHME-MF/CatchMeJ1");
+  STARTED = document.querySelector(".game");
+  isStarted = true;
+  if(isStarted == true){
+    STARTED.classList.remove("hidden");
+    url.searchParams.append('id', 'catcher');
+    console.log(url);
+    SEND_MESSAGE("catcher", "choosePlayer");
+  }
+  document.getElementById("startButtonC").remove();
+  document.getElementById("startButtonR").remove();
+}
