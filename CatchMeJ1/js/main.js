@@ -287,35 +287,3 @@ function updateMove(direction){
 // y = pawn.style.top;
 // }
 
-
-
-function startFunctionR(id) {
-
-  
-  let url = new URL("http://localhost:8080/github/CATCHME-MF/CatchMeJ1");
-  STARTED = document.querySelector(".game");
-  console.log("COUCOUCOUCOUCOUCOU");
-  isStarted = true;
-  if(isStarted == true){
-    STARTED.classList.remove("hidden");
-    url.searchParams.append('id', 'runner');
-    console.log(url);
-  }
-  SEND_MESSAGE("runner", "choosePlayer");
-  document.getElementById("startButtonC").remove();
-  document.getElementById("startButtonR").remove();
-}
-
-function startFunctionC() {
-  let url = new URL("http://localhost:8080/github/CATCHME-MF/CatchMeJ1");
-  STARTED = document.querySelector(".game");
-  isStarted = true;
-  if(isStarted == true){
-    STARTED.classList.remove("hidden");
-    url.searchParams.append('id', 'catcher');
-    console.log(url);
-    SEND_MESSAGE("catcher", "choosePlayer");
-  }
-  document.getElementById("startButtonC").remove();
-  document.getElementById("startButtonR").remove();
-}

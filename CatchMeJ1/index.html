@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="author" content="Soso" />
+    <meta name="author" content="mel" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="shortcut icon" type="image/png" href="" />
@@ -17,16 +17,7 @@
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
         
-    <script src="config/config.js"></script>
-    <script src="js/cell.js"></script>
-    <script src="js/laser.js"></script>
-    <script src="js/direction.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/App.js"></script>
-    <script src="js/test.js"></script>
-    <!-- <script src="js/player_2.js"></script> -->
-    <script src="js/main.js"></script>
-    <script src="js/displacement.js"></script>
+  
   </head>
 
   <header>
@@ -41,8 +32,7 @@
       </p>
     </div>
     <div class="titre">Catch Me</div>
-    <div class="resultV hidden">Victoire</div>
-    <div class="resultD hidden">Défaite</div>
+
     <div class="startPage">
       <button id="startButtonC" onclick="startFunctionC()">Catcher</button>
       <button id="startButtonR" onclick="startFunctionR()">Runner</button>
@@ -51,36 +41,40 @@
   </header>
   <body>
     
-    <div class="game hidden">
-     
-      <div class="horizontalButton">H</div>
-      <div class="verticalButton">V</div>
-      <div id="power">
-        <div class="bigcells"></div>
-      </div>
 
-      <div class="plateau">
-        <div id="gridContainer">
-          <div class="cells"></div>
-          <div class="players"></div>
-        </div>
+    <script>
+      function startFunctionR(id) {
+          // let url = new URL("http://localhost:8080/github/CATCHME-MF/CatchMeJ1");
+          // STARTED = document.querySelector(".game");
+          // console.log("COUCOUCOUCOUCOUCOU");
+          isStarted = true;
+          if(isStarted == true){
+            // STARTED.classList.remove("hidden");
+            window.location.href = "http://localhost:8080/github/CATCHME-MF/CatchMeJ1/game" +"?id=runner"
 
-        <div id="template" class="hidden">
-          <div class="position player player1">
-            <div class="draw"></div>
-            <div class="navigation-system">
-              <div class="navigation-arrow up" data-way="up"></div>
-              <div class="navigation-arrow left" data-way="left"></div>
-              <div class="navigation-arrow right" data-way="right"></div>
-              <div class="navigation-arrow down" data-way="down"></div>
-            </div>
-          </div>
-        </div>
-    </div>
+            //url.searchParams.append('id', 'runner');
+            console.log(url);
+          }
+          // SEND_MESSAGE("runner", "choosePlayer");
+          document.getElementById("startButtonC").remove();
+          document.getElementById("startButtonR").remove();
+      }
 
-      <div id="direction">
-        <div class="bigcells"></div>
-      </div>
-  </div>
+function startFunctionC() {
+// let url = new URL("http://localhost:8080/github/CATCHME-MF/CatchMeJ1");
+// STARTED = document.querySelector(".game");
+isStarted = true;
+if(isStarted == true){
+  // STARTED.classList.remove("hidden");
+window.location.href = "http://localhost:8080/github/CATCHME-MF/CatchMeJ1/game" +"?id=catcher"
+  //url.searchParams.append('id', 'catcher');
+  console.log(url);
+  // SEND_MESSAGE("catcher", "choosePlayer");
+}
+document.getElementById("startButtonC").remove();
+document.getElementById("startButtonR").remove();
+}
+
+    </script>
   </body>
 </html>
