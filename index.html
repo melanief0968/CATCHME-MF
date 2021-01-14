@@ -43,12 +43,13 @@
         // STARTED = document.querySelector(".game");
         // console.log("COUCOUCOUCOUCOUCOU");
         isStarted = true;
+        console.log(location);
         if (isStarted == true) {
           // STARTED.classList.remove("hidden");
-          window.location = window.location.origin + "/game.html" + "?id=runner";
+          window.location = window.location.origin + window.location.pathname + "game.html" + "?id=runner";
 
           //url.searchParams.append('id', 'runner');
-          console.log(url);
+          
         }
         // SEND_MESSAGE("runner", "choosePlayer");
         document.getElementById("startButtonC").remove();
@@ -61,7 +62,7 @@
         isStarted = true;
         if (isStarted == true) {
           // STARTED.classList.remove("hidden");
-          window.location = window.location.origin + "/game.html" + "?id=catcher";
+          window.location = window.location.origin + window.location.pathname + "game.html" + "?id=catcher";
           //url.searchParams.append('id', 'catcher');
           console.log(url);
           // SEND_MESSAGE("catcher", "choosePlayer");
