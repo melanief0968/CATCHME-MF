@@ -10,7 +10,7 @@ let OPPONENT_PAWNS = [];
 let GAME;
 
 let CELLS = [];
-let PLAYER = {positions: []};
+let PLAYER = { positions: [] };
 let PLAYER_ID = "runner";
 let OPPONENT_ID = "catcher";
 
@@ -41,33 +41,34 @@ let isStarted = false;
 //IDENTIFICATION DU JOUEUR
 const urlParams = new URLSearchParams(window.location.search);
 ID = urlParams.get("id");
-OTHER_ID = ID == "catcher"? "runner": "catcher"; 
-console.log(ID);
+OTHER_ID = ID == "catcher" ? "runner" : "catcher";
+
+let TURN;
+
+console.log("I am", ID);
 
 let prefilledOpponent;
 function bidon() {
   console.log("hehe mdr lol");
 }
 
-
 window.addEventListener("load", function () {
- 
   initPower();
   initDirection();
+  initTurn();
   initGrid();
   initPlayer();
-  
+
   POWER = new Laser();
-  
+
   GAME = new Displacement(PAWNS);
   initCellsApp();
 
-
-  SEND_MESSAGE({count: 99, move: "blank"}, ID+"/lastMove");
+  SEND_MESSAGE({ count: 99, move: "blank" }, ID + "/lastMove");
   COUNTER_OTHER = 0;
-  DATABASE.ref(OTHER_ID+"/lastMove").on("value", (snapshot) => {
+  DATABASE.ref(OTHER_ID + "/lastMove").on("value", (snapshot) => {
     let lastMove = snapshot.val();
-    if(COUNTER_OTHER == lastMove.count){
+    if (COUNTER_OTHER == lastMove.count) {
       updateMove(lastMove.move);
     }
   });
@@ -77,13 +78,13 @@ window.addEventListener("load", function () {
   result("-");
   DATABASE.ref("Game").on("value", (snapshot) => {
     let gameResult = snapshot.val();
-    if(gameResult.result == ID){
+    if (gameResult.result == ID) {
       VICTORY.classList.remove("hidden");
       DEFEAT.classList.add("hidden");
-    }else if (gameResult.result == "-"){
+    } else if (gameResult.result == "-") {
       VICTORY.classList.add("hidden");
       DEFEAT.classList.add("hidden");
-    }else{
+    } else {
       VICTORY.classList.add("hidden");
       DEFEAT.classList.remove("hidden");
     }
@@ -91,34 +92,37 @@ window.addEventListener("load", function () {
 
   DATABASE.ref("cells").on("value", (snapshot) => {
     let cells = snapshot.val();
+    if (!cells) {
+      console.log("cells is empty");
+      return;
+    }
     //CELLS = cells;
     for (let cell of cells) {
       for (let col = 0; col < N_COLS; col++) {
         for (let row = 0; row < N_ROWS; row++) {
           const coords = `${col},${row}`; //"0,0";0
-          if(GRID[coords].s.col == cell.col && GRID[coords].s.row == cell.row) {
-            if(cell.cellType == "normal") {
+          if (
+            GRID[coords].s.col == cell.col &&
+            GRID[coords].s.row == cell.row
+          ) {
+            if (cell.cellType == "normal") {
               GRID[coords].removeWall();
-            }else {
+            } else {
               GRID[coords].buildWall();
             }
           }
         }
       }
-   }
+    }
   });
-
 
   // DATABASE.ref("choosePlayer").on("value", (snapshot) => {
   //   let choice = snapshot.val();
 
   // });
 
-
-  SEND_MESSAGE(PLAYER,"pawns");
-
+  SEND_MESSAGE(PLAYER, "pawns");
 });
-
 
 // function listenToDatabase() {
 
@@ -142,7 +146,7 @@ window.addEventListener("load", function () {
 //       // }
 //       //OPPONENT_PAWNS.push(new Player(col, row, document.querySelector("#gridContainer .players"), GRID, true))
 //     }
-    
+
 //   });
 
 //   //self debugging
@@ -151,17 +155,16 @@ window.addEventListener("load", function () {
 //   });
 // }
 
-function result(id){
-  SEND_MESSAGE({result: id}, "Game");
+function result(id) {
+  SEND_MESSAGE({ result: id }, "Game");
 }
 
 function initPlayer() {
   let params = [
-    { col: 2, row: 0, color: null, id:0 },
-    { col: 4, row: 0, color: null, id:1 },
-    { col: 6, row: 0, color: null, id:2 },
-    { col: 4, row: 8, color: null, id:3 },
-   
+    { col: 2, row: 0, color: null, id: 0 },
+    { col: 4, row: 0, color: null, id: 1 },
+    { col: 6, row: 0, color: null, id: 2 },
+    { col: 4, row: 8, color: null, id: 3 },
   ];
 
   for (let { col, row, color, id } of params) {
@@ -254,7 +257,6 @@ function initDirection() {
     }
   }
 
-
   // document.querySelector('.directionElement').add.classList('first');
 
   // if(GRID[coords]=)
@@ -265,18 +267,18 @@ function initDirection() {
   // console.log(first);
 }
 
-function updateMove(direction){
-  if(OTHER_ID == "catcher"){
+function updateMove(direction) {
+  if (OTHER_ID == "catcher") {
     for (let row = N_ROWS_P - 1; row > 1; row--) {
-      DIRECTION_CATCHER[row].updateImg(DIRECTION_CATCHER[(row - 1)].image);
+      DIRECTION_CATCHER[row].updateImg(DIRECTION_CATCHER[row - 1].image);
     }
-    DIRECTION_CATCHER[1].updateImg(direction+"2");
+    DIRECTION_CATCHER[1].updateImg(direction + "2");
   }
-  if(OTHER_ID == "runner"){
+  if (OTHER_ID == "runner") {
     for (let row = N_ROWS_P - 1; row > 1; row--) {
-      DIRECTION[row].updateImg(DIRECTION[(row - 1)].image);
+      DIRECTION[row].updateImg(DIRECTION[row - 1].image);
     }
-    DIRECTION[1].updateImg(direction);   
+    DIRECTION[1].updateImg(direction);
   }
   COUNTER_OTHER++;
 }
@@ -286,4 +288,3 @@ function updateMove(direction){
 // x = pawn.style.left;
 // y = pawn.style.top;
 // }
-

@@ -14,12 +14,12 @@
 html,
 body {
   margin: 0;
-  padding: 100;
+  /* padding: 100; */
   height: 100%;
-  display: bloc;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
+  /* display: block; */
+  /* align-items: center;
+  justify-content: center; */
+  width: 100%;
   font-family: filicudi-solid, sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -27,24 +27,125 @@ body {
   background-color: var(--bckd);
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 header{
+  position: absolute;
   width:100%;
   display:bloc;
   align-items: center;
-  
+}
+
+/* .startPage{
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  position: fixed;
+  z-index: 998;
+} */
+#startButtonC {
+  position: fixed;
+
+  background-color: black;
+  color: white;
+  border: 0;
+  top: 45%;
+  left: 35%;
+  z-index: 999;
+  font-size: 40px;
+  cursor: pointer;
+  font-family: filicudi-solid, sans-serif;
+
+}
+#startButtonR {
+  position: fixed;
+
+  background-color: black;
+  color: white;
+  border: 0;
+  top: 45%;
+  left: 55%;
+  z-index: 999;
+  font-size: 40px;
+  cursor: pointer;
+  font-family: filicudi-solid, sans-serif;
 
 }
 
+#startButtonC:hover {
+opacity: 0.5;
+transition: 0.3s;
+}
+
 .game{
+  display: flex;
+  flex: 1 1 auto;
+  /* position: absolute; */
+  /* left:0; */
+  /* top:0; */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* height:100%; */
+}
+
+.controls {
+  /* flex: 1 0 auto; */
+  padding: calc(var(--size) / 2);
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+
+.resultV{
+  width:100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: green;
+  font-size: 3em;
+}
+
+.buttons{
   display: flex;
   position: absolute;
   left:0;
   top:0;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height:100vh;
+  width: 100%;
+}
+.horizontalButton{
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--casecolor);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 0.1em var(--bckd);
+  align-items: center;
+  text-align: center;
 
+
+}
+.verticalButton{ width: var(--size);
+  height: var(--size);
+  background-color: var(--casecolor);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 0.1em var(--bckd);
+  transition: all 1s;
+  text-align: center;
+
+
+}
+.resultD{
+  width:100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-size: 3em;
 }
 
 .titre{
@@ -64,14 +165,7 @@ header{
   width: var(--size);
 }
 
-.powerElem0{
-  background-color: var(--player2) !important;
-  border-radius: var(--radius) var(--radius) 0 0!important;
-}
-.powerElem8{
- 
-  border-radius: 0 0 var(--radius) var(--radius) !important;
-}
+
 
 .powerElem{
   background-color: white !important;
@@ -111,17 +205,38 @@ header{
   /* border-radius: var(--radius); */
   /* box-shadow: inset 0 0 0 0.1em var(--bckd); */
   transition: all 1s;
+  align-content: center;
 }
 
-.dirElem0{
+.dirElem0catcher{
   background-color: var(--player1) !important;
   border-radius: var(--radius) var(--radius) 0 0!important;
 }
-.dirElem8{
+
+.dirElem0runner{
+  background-color: var(--player2) !important;
+  border-radius: var(--radius) var(--radius) 0 0!important;
+}
+
+.dirElem8catcher{
  
   border-radius: 0 0 var(--radius) var(--radius) !important;
 }
 
+.dirElem8runner{
+ 
+  border-radius: 0 0 var(--radius) var(--radius) !important;
+}
+
+.fleche{
+  /* width: 80%;
+  height: 80%;
+  position: relative; */
+  width: 100%;
+  height: 100%;
+  position: relative;
+  object-fit: scale-down;
+}
 
 .first{
 background-color: black;
@@ -193,7 +308,7 @@ background-color: black;
   /* top: calc(var(--size) * var(--row));
   left: calc(var(--size) * var(--col)); */
   transform: translate(-120%, -120%);
-  background: var(--player2);
+  background: var(--player1);
   border-radius: 50%;
   /* box-shadow: inset 0 0 0 0.3em #25242d; */
   transition: background-color 0.1s;
@@ -224,7 +339,7 @@ background-color: black;
   width: 66%;
   height: 66%;
   border-radius: 50%;
-  background-color: var(--player2);
+  background-color: var(--player1);
   pointer-events: none;
 }
 
@@ -259,16 +374,16 @@ background-color: black;
 
 }
 
-.infomenu:hover{
+/* .infomenu:hover{
   opacity: 1;
   position:fixed;
   top:0;
   right:0;
   width: 80vw;
-  margin: 0;
+  margin: 0; */
   /* background: black; */
-  height:100vh;
-}
+  /* height:100vh;
+} */
 .texteinfos{
   width:80%;
   height:80%;

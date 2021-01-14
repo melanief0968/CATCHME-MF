@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="mel" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" type="image/png" href="" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/sob7vkr.css" />
+    <title>Catch Me</title>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  </head>
+
+  <header>
+    <img class="infos" src="img/infos.png" />
+    <div class="infomenu">
+      <img class="logo" src="img/logo.png" />
+      <p class="texteinfos">
+        How you play : blabla<br />
+        move blabla<br />
+        your superpower <br />
+        your oponant: blabla
+      </p>
+    </div>
+    <div class="titre">Catch Me</div>
+
+    <div class="startPage">
+      <button id="startButtonC" onclick="startFunctionC()">Catcher</button>
+      <button id="startButtonR" onclick="startFunctionR()">Runner</button>
+    </div>
+  </header>
+  <body>
+    <script>
+      function startFunctionR(id) {
+        // let url = new URL("http://localhost:8080/github/CATCHME-MF/CatchMeJ1");
+        // STARTED = document.querySelector(".game");
+        // console.log("COUCOUCOUCOUCOUCOU");
+        isStarted = true;
+        if (isStarted == true) {
+          // STARTED.classList.remove("hidden");
+          window.location = window.location.origin + "/game.html" + "?id=runner";
+
+          //url.searchParams.append('id', 'runner');
+          console.log(url);
+        }
+        // SEND_MESSAGE("runner", "choosePlayer");
+        document.getElementById("startButtonC").remove();
+        document.getElementById("startButtonR").remove();
+      }
+
+      function startFunctionC() {
+        // let url = new URL("http://localhost:8080/github/CATCHME-MF/CatchMeJ1");
+        // STARTED = document.querySelector(".game");
+        isStarted = true;
+        if (isStarted == true) {
+          // STARTED.classList.remove("hidden");
+          window.location = window.location.origin + "/game.html" + "?id=catcher";
+          //url.searchParams.append('id', 'catcher');
+          console.log(url);
+          // SEND_MESSAGE("catcher", "choosePlayer");
+        }
+        document.getElementById("startButtonC").remove();
+        document.getElementById("startButtonR").remove();
+      }
+    </script>
+  </body>
+</html>

@@ -20,9 +20,13 @@ class Cell {
     this.elem.style.setProperty("--row", this.s.row);
     this.elem.style.setProperty("--col", this.s.col);
 
-    // this.elem.addEventListener('click', this.buildWall.bind(this));
+    //this.elem.addEventListener('click', this.buildWall.bind(this));
     this.elem.addEventListener("click", () => {
-      this.toggleWall(); // active  desactive le mur
+      if (TURN === ID && ID == "catcher") {
+        this.toggleWall(); // active  desactive le mur
+        swapTurn();
+      }
+
       // this.buildWall();
     });
 
@@ -42,17 +46,17 @@ class Cell {
     this.elem.classList.toggle("wall");
 
     this.app.refreshPlayersPos();
-
+    this.updateWall();
     this.updateDatabase();
   }
 
   buildWall() {
     this.s.cellType = "wall";
-    
+
     this.elem.classList.add("wall");
     this.app.refreshPlayersPos();
 
-    this.updateDatabase();
+    // this.updateDatabase();
   }
 
   removeWall() {
@@ -60,6 +64,13 @@ class Cell {
     this.elem.classList.remove("wall");
     this.app.refreshPlayersPos();
 
+    // this.updateDatabase();
+  }
+
+  destroyWall() {
+    this.s.cellType = "normal";
+    this.elem.classList.remove("wall");
+    this.app.refreshPlayersPos();
     this.updateDatabase();
   }
 
@@ -72,7 +83,24 @@ class Cell {
     this.updateDatabase();
   }
 
+  updateWall() {
+    if (ID == "catcher") {
+      for (let row = N_ROWS_P - 1; row > 1; row--) {
+        DIRECTION_CATCHER[row].updateImg(DIRECTION_CATCHER[row - 1].image);
+      }
+      DIRECTION_CATCHER[1].updateImg("wall2");
+    }
+    if (ID == "runner") {
+      for (let row = N_ROWS_P - 1; row > 1; row--) {
+        DIRECTION[row].updateImg(DIRECTION[row - 1].image);
+      }
+      DIRECTION[1].updateImg("wall");
+    }
+    SEND_MESSAGE({ count: COUNTER_SELF, move: "wall" }, ID + "/lastMove");
+    COUNTER_SELF++;
+  }
+
   updateDatabase() {
-    SEND_MESSAGE(CELLS, CELLS_ID)
+    SEND_MESSAGE(CELLS, CELLS_ID);
   }
 }
