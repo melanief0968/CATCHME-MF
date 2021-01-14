@@ -20,7 +20,6 @@ class Player {
     this.parent.appendChild(this.elem);
     this.selected = false;
 
-
     // this.direction = direction;
 
     // this.elem.style = this.s.col * this.size;
@@ -32,10 +31,14 @@ class Player {
     this.arrows = this.navigationSystem.children;
     for (let arrow of this.arrows) {
       arrow.addEventListener("click", (e) => {
-        this.arrowClick(e.target);
+
+        if(TURN === ID) {
+          this.arrowClick(e.target);
+          swapTurn();
+        }
+          
       });
     }
-
 
     PLAYER.positions.push(this.s);
     // } else {
@@ -54,18 +57,17 @@ class Player {
       // console.log(keys);
       // console.log(vals.Counter);
     });
-    
-    if(ID == "catcher"){
-      if(this.id == 3){
+
+    if (ID == "catcher") {
+      if (this.id == 3) {
         this.elem.classList.add("hidden");
       }
     }
-    if(ID == "runner"){
-      if(this.id != 3){
+    if (ID == "runner") {
+      if (this.id != 3) {
         this.elem.classList.add("hidden");
-      }    
+      }
     }
-
   }
 
   refreshPos() {
@@ -113,7 +115,6 @@ class Player {
     } else {
       this.arrows[3].classList.add("hidden");
     }
-
   }
 
   arrowClick(target) {
@@ -133,11 +134,6 @@ class Player {
       }
 
       this.move(movementX, movementY);
-
-      
-      
-
-      
     }
   }
 
@@ -150,16 +146,16 @@ class Player {
       this.s.row += movementY;
       //SEND_MESSAGE(this.s, `${ID }/position`);
       PLAYER.positions[this.id] = this.s;
-      if(movementX > 0){
+      if (movementX > 0) {
         this.updateDirection("right");
       }
-      if(movementX < 0){
+      if (movementX < 0) {
         this.updateDirection("left");
       }
-      if(movementY > 0){
+      if (movementY > 0) {
         this.updateDirection("down");
       }
-      if(movementY < 0){
+      if (movementY < 0) {
         this.updateDirection("up");
       }
 
@@ -168,22 +164,34 @@ class Player {
       this.updateCSS();
       this.refreshPos();
 
-      if(ID == "catcher" && positionY == PLAYER.positions[3].row && positionX == PLAYER.positions[3].col){
+      if (
+        ID == "catcher" &&
+        positionY == PLAYER.positions[3].row &&
+        positionX == PLAYER.positions[3].col
+      ) {
         result(ID);
-      }else if(ID == "runner" && positionY == PLAYER.positions[0].row && positionX == PLAYER.positions[0].col){
+      } else if (
+        ID == "runner" &&
+        positionY == PLAYER.positions[0].row &&
+        positionX == PLAYER.positions[0].col
+      ) {
         result(OTHER_ID);
-      }
-      else if(ID == "runner" && positionY == PLAYER.positions[1].row && positionX == PLAYER.positions[1].col){
+      } else if (
+        ID == "runner" &&
+        positionY == PLAYER.positions[1].row &&
+        positionX == PLAYER.positions[1].col
+      ) {
         result(OTHER_ID);
-      }
-      else if(ID == "runner" && positionY == PLAYER.positions[2].row && positionX == PLAYER.positions[2].col){
+      } else if (
+        ID == "runner" &&
+        positionY == PLAYER.positions[2].row &&
+        positionX == PLAYER.positions[2].col
+      ) {
         result(OTHER_ID);
-      }else if(ID == "runner" && positionY == 0){
+      } else if (ID == "runner" && positionY == 0) {
         result(ID);
       }
     }
-
-    
   }
 
   setpos(positionX, positionY) {
@@ -199,20 +207,20 @@ class Player {
     }
   }
 
-  updateDirection(direction){
-    if(ID == "catcher"){
+  updateDirection(direction) {
+    if (ID == "catcher") {
       for (let row = N_ROWS_P - 1; row > 1; row--) {
-        DIRECTION_CATCHER[row].updateImg(DIRECTION_CATCHER[(row - 1)].image);
+        DIRECTION_CATCHER[row].updateImg(DIRECTION_CATCHER[row - 1].image);
       }
-      DIRECTION_CATCHER[1].updateImg(direction+"2");
+      DIRECTION_CATCHER[1].updateImg(direction + "2");
     }
-    if(ID == "runner"){
+    if (ID == "runner") {
       for (let row = N_ROWS_P - 1; row > 1; row--) {
-        DIRECTION[row].updateImg(DIRECTION[(row - 1)].image);
+        DIRECTION[row].updateImg(DIRECTION[row - 1].image);
       }
-      DIRECTION[1].updateImg(direction);   
+      DIRECTION[1].updateImg(direction);
     }
-    SEND_MESSAGE({count: COUNTER_SELF, move: direction}, ID+"/lastMove");
+    SEND_MESSAGE({ count: COUNTER_SELF, move: direction }, ID + "/lastMove");
     COUNTER_SELF++;
   }
 
@@ -235,13 +243,8 @@ class Player {
   }
 
   updateDatabase() {
-   
-
-    SEND_MESSAGE(PLAYER,"pawns")
-
+    SEND_MESSAGE(PLAYER, "pawns");
   }
-
-
 
   // SEND_MESSAGE("catch_me/essai", data);
 }

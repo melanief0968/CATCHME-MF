@@ -22,19 +22,15 @@ class Cell {
 
     //this.elem.addEventListener('click', this.buildWall.bind(this));
     this.elem.addEventListener("click", () => {
-      if(ID == "catcher"){
+      if (TURN === ID && ID == "catcher") {
         this.toggleWall(); // active  desactive le mur
-
+        swapTurn();
       }
-     
+
       // this.buildWall();
     });
 
-
-
     CELLS.push(this.s);
-
-
   }
 
   //   update() {
@@ -56,7 +52,7 @@ class Cell {
 
   buildWall() {
     this.s.cellType = "wall";
-    
+
     this.elem.classList.add("wall");
     this.app.refreshPlayersPos();
 
@@ -87,24 +83,24 @@ class Cell {
     this.updateDatabase();
   }
 
-  updateWall(){
-    if(ID == "catcher"){
+  updateWall() {
+    if (ID == "catcher") {
       for (let row = N_ROWS_P - 1; row > 1; row--) {
-        DIRECTION_CATCHER[row].updateImg(DIRECTION_CATCHER[(row - 1)].image);
+        DIRECTION_CATCHER[row].updateImg(DIRECTION_CATCHER[row - 1].image);
       }
       DIRECTION_CATCHER[1].updateImg("wall2");
     }
-    if(ID == "runner"){
+    if (ID == "runner") {
       for (let row = N_ROWS_P - 1; row > 1; row--) {
-        DIRECTION[row].updateImg(DIRECTION[(row - 1)].image);
+        DIRECTION[row].updateImg(DIRECTION[row - 1].image);
       }
-      DIRECTION[1].updateImg("wall");   
+      DIRECTION[1].updateImg("wall");
     }
-    SEND_MESSAGE({count: COUNTER_SELF, move: "wall"}, ID+"/lastMove");
+    SEND_MESSAGE({ count: COUNTER_SELF, move: "wall" }, ID + "/lastMove");
     COUNTER_SELF++;
   }
 
   updateDatabase() {
-    SEND_MESSAGE(CELLS, CELLS_ID)
+    SEND_MESSAGE(CELLS, CELLS_ID);
   }
 }
