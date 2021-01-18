@@ -30,6 +30,9 @@ class Player {
     this.navigationSystem = this.elem.querySelector(".navigation-system");
     this.arrows = this.navigationSystem.children;
     for (let arrow of this.arrows) {
+      if (ID == "runner") {
+      arrow.classList.add("navigation-arrow2");
+      }
       arrow.addEventListener("click", (e) => {
 
         if(TURN === ID) {
@@ -51,7 +54,7 @@ class Player {
     DATABASE.ref("pawns/positions").on("value", (snapshot) => {
       let position = snapshot.val();
       PLAYER.positions = position;
-      console.log(position[this.id]);
+      // console.log(position[this.id]);
       this.setpos(position[this.id].col, position[this.id].row);
       // const keys = Object.keys(vals);
       // console.log(keys);
@@ -64,11 +67,22 @@ class Player {
       }
     }
     if (ID == "runner") {
+      this.updateColor();
       if (this.id != 3) {
         this.elem.classList.add("hidden");
       }
     }
   }
+
+  updateColor(){
+
+    if (ID == "runner") {
+  // this.elem.classList.remove("player");
+      this.elem.classList.add("player2");
+ // color=this.color.classList.add("player2");
+    }
+  }
+
 
   refreshPos() {
     const coordsUp = `${this.s.col},${this.s.row - 1}`; //"x, y"

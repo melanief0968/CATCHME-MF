@@ -34,6 +34,11 @@ let DIRECTION_CATCHER = [];
 let VICTORY;
 let DEFEAT;
 
+let RESTART;
+
+let NOTYOURTURN;
+let YOURTURN; 
+
 let STARTED;
 
 let isStarted = false;
@@ -59,6 +64,7 @@ window.addEventListener("load", function () {
   initGrid();
   initPlayer();
 
+  RESTART= document.querySelector(".restart");
   POWER = new Laser();
 
   GAME = new Displacement(PAWNS);
@@ -73,6 +79,24 @@ window.addEventListener("load", function () {
     }
   });
 
+
+// CTURN = document.querySelector(".Cturn");
+// RTURN = document.querySelector(".Rturn");
+// DATABASE.ref("Turn").on("value", (snapshot) => {
+//   let whosplaying = snapshot.val();
+//   if (whosplaying.setTurn == ID) {
+//     // CTURN.classList.remove("hidden");
+//     RTURN.classList.add("hidden");
+//   // } else if (gameResult.result == "-") {
+//   //   VICTORY.classList.add("hidden");
+//   //   DEFEAT.classList.add("hidden");
+//   // } else {
+//   //   VICTORY.classList.add("hidden");
+//   //   DEFEAT.classList.remove("hidden");
+//   }
+// }); 
+  
+  YOURTURN = document.querySelector(".yourturn");
   VICTORY = document.querySelector(".resultV");
   DEFEAT = document.querySelector(".resultD");
   result("-");
@@ -80,13 +104,18 @@ window.addEventListener("load", function () {
     let gameResult = snapshot.val();
     if (gameResult.result == ID) {
       VICTORY.classList.remove("hidden");
-      DEFEAT.classList.add("hidden");
+      DEFEAT.classList.add("hidden"+"winp1");
+      YOURTURN.classList.add("hidden");
+      RESTART.classList.remove("hidden");
     } else if (gameResult.result == "-") {
-      VICTORY.classList.add("hidden");
-      DEFEAT.classList.add("hidden");
+      VICTORY.classList.add("hidden"+"winp1");
+      DEFEAT.classList.add("hidden"+"winp2");
+      
     } else {
-      VICTORY.classList.add("hidden");
+      VICTORY.classList.add("hidden"+"winp2");
       DEFEAT.classList.remove("hidden");
+      YOURTURN.classList.add("hidden");
+      RESTART.classList.remove("hidden");
     }
   });
 
@@ -160,12 +189,15 @@ function result(id) {
 }
 
 function initPlayer() {
+  let x = Math.floor((Math.random()*8)+1);
   let params = [
     { col: 2, row: 0, color: null, id: 0 },
     { col: 4, row: 0, color: null, id: 1 },
     { col: 6, row: 0, color: null, id: 2 },
-    { col: 4, row: 8, color: null, id: 3 },
+    { col: x, row: 8, color: null, id: 3 },
   ];
+
+
 
   for (let { col, row, color, id } of params) {
     //object destructuring
@@ -282,7 +314,9 @@ function updateMove(direction) {
   }
   COUNTER_OTHER++;
 }
-
+function reload (){
+  window.location.reload(true)
+}
 // function player(x,y){
 // let parent = document.querySelector("#pawn");
 // x = pawn.style.left;

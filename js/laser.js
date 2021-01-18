@@ -12,8 +12,11 @@ class Laser {
     });
 
     this.v.addEventListener("click", () => {
+      if (TURN === ID && ID == "runner") {
       this.destroyV(PLAYER.positions[3].col)
       this.updateLaserV();
+      swapTurn();
+      }
     });
 
     DATABASE.ref(OTHER_ID+"/lastMove").on("value", (snapshot) => {

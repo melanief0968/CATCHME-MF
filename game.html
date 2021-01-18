@@ -33,17 +33,36 @@
   <header>
     
     <img class="infos" src="img/infos.png">
-    <div class="infomenu">
+    <div class="infomenu" id="openInfos" onclick="openInfosmenu()">
+      <p class="closeInfos" id="closeInfos" onclick="closeInfosmenu()">x close</p>
       <img class="logo" src="img/logo.png">
-      <p class="texteinfos">How you play : blabla<br>
-       move blabla<br>
-       your superpower <br>
-       your oponant: blabla
+      <p class="texteinfos">   Rules : <br/>
+        ·Catch Me is a two players game. <br/>
+        ·The Runner has to cross the board and the Catcher has to inercept him.<br/>
+        ·Catcher can create walls to slow down the opponant but the catcher can destroy those walls in his vertical or horizontal way  to break the whole line<br/>
+        ·but with this power he may reveal his position... <br/>
+        ·here's an advice : use it with parsimony! <br />
+        <br/>
+        Play : <br/>
+        ·Catcher starts at the top of the board with 3 pawns in position 3,5,7. <br/>
+        ·Runner take a random place at the bottom of the board. <br/>
+        ·Neither player is visible to the other.  <br/>
+        ·The players take turns. <br/>
+        ·They can move by selecting a pawn or use a power. <br/>
+        ·Walls for the Catcher, vertical or horizontal explosion. <br/>
+        ·Catcher wins if he finds Runner with one of his pawns. <br/>
+        ·Runner wins if he reach the opposite side. <br />
+        <br />
       </p>
     </div>
     <div class="titre">Catch Me</div>
-    <div class="resultV hidden">Victoire</div>
-    <div class="resultD hidden">Défaite</div>
+    <div class="resultV hidden">You won!</div>
+    <div class="resultD hidden">You loose!</div>
+    <div class="yourturn">
+      <span id="yourturnPlayer"></span>
+      <span id="notyourturn"></span>
+    </div>
+    
     <!-- <div class="startPage">
       <button id="startButtonC" onclick="startFunctionC()">Catcher</button>
       <button id="startButtonR" onclick="startFunctionR()">Runner</button>
@@ -51,7 +70,9 @@
     
   </header>
   <body>
-    
+    <div class="restart hidden" id="restartButton" onclick="reload()"><span>
+      Restart Game
+    </span></div>
     <section class="game">
      
       <div id="power">
@@ -86,5 +107,21 @@
     <div class="horizontalButton">H</div>
       <div class="verticalButton">V</div>
   </section>
+  <script>
+    let clickCount = 0;
+    function openInfosmenu() {
+      document.getElementById("openInfos").classList.add("infomenuok");
+      clickCount++;
+      console.log(clickCount);
+      if(clickCount%2){
+        console.log(clickCount);
+        document.getElementById("openInfos").classList.remove("infomenuok");
+      } 
+      
+    }
+    function closeInfosmenu() {
+      document.getElementById("closeInfos").classList.remove("infomenuok");
+    }
+    </script>
   </body>
 </html>
