@@ -2,13 +2,13 @@
 // Your web app's Firebase configuration
 const firebaseConfig = {
 
-    apiKey: "AIzaSyC_THD3Z8p3W7BS-gwcWAbc4VVQQaeaLKM",
-    authDomain: "catchme-181fc.firebaseapp.com",
-    databaseURL: "https://catchme-181fc-default-rtdb.firebaseio.com",
-    projectId: "catchme-181fc",
-    storageBucket: "catchme-181fc.appspot.com",
-    messagingSenderId: "519411137053",
-    appId: "1:519411137053:web:ac2655bf5235d658c2a4f4"
+    apiKey: process.env.APIKEY,
+    authDomain: process.env.authDomain,
+    databaseURL: process.env.databaseURL,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
